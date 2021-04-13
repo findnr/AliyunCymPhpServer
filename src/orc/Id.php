@@ -51,19 +51,19 @@ class Id
         }
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         $result = curl_exec($curl);
-        $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $rheader = substr($result, 0, $header_size);
-        $rbody = substr($result, $header_size);
+        // $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+        // $rheader = substr($result, 0, $header_size);
+        // $rbody = substr($result, $header_size);
 
-        $httpCode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
-        if($httpCode == 200){
-            $result_str = $rbody;
-            printf("result is :\n %s\n", $result_str);
-        }else{
-            printf("Http error code: %d\n", $httpCode);
-            printf("Error msg in body: %s\n", $rbody);
-            printf("header: %s\n", $rheader);
-        }
+        // $httpCode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
+        // if($httpCode == 200){
+        //     $result_str = $rbody;
+        //     printf("result is :\n %s\n", $result_str);
+        // }else{
+        //     printf("Http error code: %d\n", $httpCode);
+        //     printf("Error msg in body: %s\n", $rbody);
+        //     printf("header: %s\n", $rheader);
+        // }
         curl_close($curl);
         return $result;
     }
