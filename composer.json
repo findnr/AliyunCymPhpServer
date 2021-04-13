@@ -1,0 +1,17 @@
+{
+    "name": "findnr/aliyun_cym_php_server",
+    "description": "this is aliyun server api",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "cym504875043",
+            "email": "504875043@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AliyunCymPhpServer\\": "src/"
+        }
+    },
+    "require": {}
+}
