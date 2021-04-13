@@ -58,12 +58,13 @@ class Id
 
         $httpCode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
         if($httpCode == 200){
-            $result_str = $rbody;
+            $result_str =json_decode($rbody,true);
             printf("result is :\n %s\n", $result_str);
         }else{
             printf("Http error code: %d\n", $httpCode);
             printf("Error msg in body: %s\n", $rbody);
             printf("header: %s\n", $rheader);
+            $result_str ="error";
         }
         curl_close($curl);
         return $result_str;
