@@ -11,7 +11,7 @@ class Send{
 
     public function __construct($data=[])
     {
-        AlibabaCloud::accessKeyClient($data['accessKeyId'], $data['accessKeyId'])->regionId('cn-hangzhou')->asDefaultClient();
+        AlibabaCloud::accessKeyClient($data['accessKeyId'], $data['accessKeySecret'])->regionId('cn-hangzhou')->asDefaultClient();
     }
     public function sendOne($data=[]){
         $result = AlibabaCloud::rpc()
