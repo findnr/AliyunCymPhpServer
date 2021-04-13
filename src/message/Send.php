@@ -36,7 +36,7 @@ class Send{
 
                         'SignName' => $data['signName'],
 
-                        'PhoneNumbers'  =>  $data['phnone'],
+                        'PhoneNumbers'  =>  $data['phone'],
 
                         'TemplateCode'  =>  $data['template_code'],
 
