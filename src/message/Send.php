@@ -60,7 +60,8 @@ class Send
                     $send_data[$ks]['SignName'] = $data['signName'];
                     $send_data[$ks]['PhoneNumbers'] = $v['phone'];
                     $send_data[$ks]['TemplateCode'] = $data['template_code'];
-                    $send_data[$ks]['TemplateParam'] = json_encode($data['content']);
+                    unset($v['phone']);
+                    $send_data[$ks]['TemplateParam'] = json_encode($v);
                 }
                 $res_data[] = $this->_send_all($send_data);
             }
@@ -70,7 +71,8 @@ class Send
                 $send_data[$k]['SignName'] = $data['signName'];
                 $send_data[$k]['PhoneNumbers'] = $v['phone'];
                 $send_data[$k]['TemplateCode'] = $data['template_code'];
-                $send_data[$k]['TemplateParam'] = json_encode($data['content']);
+                unset($v['phone']);
+                $send_data[$ks]['TemplateParam'] = json_encode($v);
             }
             $res_data = $this->_send_all($send_data);
         }
