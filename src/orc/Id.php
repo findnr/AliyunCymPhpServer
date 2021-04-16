@@ -1,6 +1,6 @@
 <?php
 
-namespace AliyunServer\orc;
+namespace CymAliyun\orc;
 
 class Id
 {

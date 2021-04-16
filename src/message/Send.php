@@ -1,6 +1,6 @@
 <?php
 
-namespace AliyunServer\message;
+namespace CymAliyun\message;
 
 
 use AlibabaCloud\Client\AlibabaCloud;
