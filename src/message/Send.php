@@ -1,49 +1,51 @@
 <?php
 
-namespace AliyunCymPhpServer\message;
+namespace AliyunServer\message;
 
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
 
-class Send{
+class Send
+{
 
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         AlibabaCloud::accessKeyClient($data['accessKeyId'], $data['accessKeySecret'])->regionId('cn-hangzhou')->asDefaultClient();
     }
-    public function sendOne($data=[]){
+    public function sendOne($data = [])
+    {
         $result = AlibabaCloud::rpc()
 
-                ->product('Dysmsapi')
+            ->product('Dysmsapi')
 
-                // ->scheme('https') // https | http
+            // ->scheme('https') // https | http
 
-                ->version('2017-05-25')
+            ->version('2017-05-25')
 
-                ->action('SendSms')
+            ->action('SendSms')
 
-                ->method('POST')
+            ->method('POST')
 
-                ->host('dysmsapi.aliyuncs.com')
+            ->host('dysmsapi.aliyuncs.com')
 
-                ->options([
+            ->options([
 
-                    'query' => [
+                'query' => [
 
-                        'RegionId' =>'cn-hangzhou',
+                    'RegionId' => 'cn-hangzhou',
 
-                        'SignName' => $data['signName'],
+                    'SignName' => $data['signName'],
 
-                        'PhoneNumbers'  =>  $data['phone'],
+                    'PhoneNumbers'  =>  $data['phone'],
 
-                        'TemplateCode'  =>  $data['template_code'],
+                    'TemplateCode'  =>  $data['template_code'],
 
-                        'TemplateParam' =>  json_encode($data['content']),
+                    'TemplateParam' =>  json_encode($data['content']),
 
-                    ],
+                ],
 
-                ])->request();
+            ])->request();
     }
 }

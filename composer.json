@@ -1,5 +1,5 @@
 {
-    "name": "findnr/aliyun-cym-php-server",
+    "name": "findnr/aliyun-server",
     "description": "this is aliyun server api",
     "license": "Apache-2.0",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "AliyunCymPhpServer\\": "src/"
+            "AliyunServer\\": "src/"
         }
     },
     "require": {
