@@ -57,10 +57,10 @@ class Send
                 $$send_data = [];
                 foreach ($v as $ks => $vs) {
                     $send_data[$ks]['RegionId'] = 'cn-hangzhou';
-                    $send_data[$ks]['SignName'] = $data['signName'];
-                    $send_data[$ks]['PhoneNumbers'] = $v['phone'];
+                    $send_data[$ks]['SignName'] = $data['sign_name'];
+                    $send_data[$ks]['PhoneNumbers'] = $v['send_phone'];
                     $send_data[$ks]['TemplateCode'] = $data['template_code'];
-                    unset($v['phone']);
+                    unset($v['send_phone']);
                     $send_data[$ks]['TemplateParam'] = json_encode($v);
                 }
                 $res_data[] = $this->_send_all($send_data);
@@ -68,10 +68,10 @@ class Send
         } else {
             foreach ($phone_data as $k => $v) {
                 $send_data[$k]['RegionId'] = 'cn-hangzhou';
-                $send_data[$k]['SignName'] = $data['signName'];
-                $send_data[$k]['PhoneNumbers'] = $v['phone'];
+                $send_data[$k]['SignName'] = $data['sign_name'];
+                $send_data[$k]['PhoneNumbers'] = $v['send_phone'];
                 $send_data[$k]['TemplateCode'] = $data['template_code'];
-                unset($v['phone']);
+                unset($v['send_phone']);
                 $send_data[$ks]['TemplateParam'] = json_encode($v);
             }
             $res_data = $this->_send_all($send_data);
