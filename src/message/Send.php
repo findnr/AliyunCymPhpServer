@@ -34,7 +34,7 @@ class Send
             ->options([
                 'query' => [
                     'RegionId' => 'cn-hangzhou',
-                    'SignName' => $data['signName'],
+                    'SignName' => $data['sign_name'],
                     'PhoneNumbers'  =>  $data['phone'],
                     'TemplateCode'  =>  $data['template_code'],
                     'TemplateParam' =>  json_encode($data['content']),
