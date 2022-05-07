@@ -2,7 +2,6 @@
 
 namespace CymAliyun\message;
 
-
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
@@ -26,6 +25,8 @@ class Send
      */
     public function sendOne($data = [])
     {
+        // echo "<pre>";
+        AlibabaCloud::rpc();
         $result = AlibabaCloud::rpc()->product('Dysmsapi')
 
             // ->scheme('https') // https | http
@@ -33,7 +34,6 @@ class Send
             ->version('2017-05-25')->action('SendSms')->method('POST')->host('dysmsapi.aliyuncs.com')
             ->options([
                 'query' => [
-                    'RegionId' => 'cn-hangzhou',
                     'SignName' => $data['sign_name'],
                     'PhoneNumbers'  =>  $data['send_phone'],
                     'TemplateCode'  =>  $data['template_code'],
@@ -51,29 +51,39 @@ class Send
      */
     public function sendAll($data = [], $phone_data = [])
     {
+        $send_data['TemplateCode'] = $data['template_code'];
         if (count($phone_data) > 100) {
             $phone_group_arr = $this->_data_res($phone_data, 100);
             foreach ($phone_group_arr as $k => $v) {
                 $$send_data = [];
+                $send_data['TemplateCode'] = $data['template_code'];
+                $send_data['SignNameJson'] = [];
+                $send_data['TemplateParamJson'] = [];
+                $send_data['PhoneNumberJson'] = [];
                 foreach ($v as $ks => $vs) {
-                    $send_data[$ks]['RegionId'] = 'cn-hangzhou';
-                    $send_data[$ks]['SignName'] = $data['sign_name'];
-                    $send_data[$ks]['PhoneNumbers'] = $vs['send_phone'];
-                    $send_data[$ks]['TemplateCode'] = $data['template_code'];
+                    array_push($send_data['SignNameJson'], $data['sign_name']);
+                    array_push($send_data['PhoneNumberJson'], $vs['send_phone']);
                     unset($vs['send_phone']);
-                    $send_data[$ks]['TemplateParam'] = json_encode($v);
+                    array_push($send_data['TemplateParamJson'], $vs);
                 }
+                $send_data['SignNameJson'] = json_encode($send_data['SignNameJson']);
+                $send_data['TemplateParamJson'] = json_encode($send_data['TemplateParamJson']);
+                $send_data['PhoneNumberJson'] = json_encode($send_data['PhoneNumberJson']);
                 $res_data[] = $this->_send_all($send_data);
             }
         } else {
+            $send_data['SignNameJson'] = [];
+            $send_data['TemplateParamJson'] = [];
+            $send_data['PhoneNumberJson'] = [];
             foreach ($phone_data as $ks => $vs) {
-                $send_data[$ks]['RegionId'] = 'cn-hangzhou';
-                $send_data[$ks]['SignName'] = $data['sign_name'];
-                $send_data[$ks]['PhoneNumbers'] = $vs['send_phone'];
-                $send_data[$ks]['TemplateCode'] = $data['template_code'];
+                array_push($send_data['SignNameJson'], $data['sign_name']);
+                array_push($send_data['PhoneNumberJson'], $vs['send_phone']);
                 unset($vs['send_phone']);
-                $send_data[$ks]['TemplateParam'] = json_encode($vs);
+                array_push($send_data['TemplateParamJson'], $vs);
             }
+            $send_data['SignNameJson'] = json_encode($send_data['SignNameJson']);
+            $send_data['TemplateParamJson'] = json_encode($send_data['TemplateParamJson']);
+            $send_data['PhoneNumberJson'] = json_encode($send_data['PhoneNumberJson']);
             $res_data = $this->_send_all($send_data);
         }
         return $res_data;
@@ -87,9 +97,7 @@ class Send
     private function _send_all($data = []): array
     {
         $result = AlibabaCloud::rpc()->product('Dysmsapi')
-
             // ->scheme('https') // https | http
-
             ->version('2017-05-25')->action('SendBatchSms')->method('POST')->host('dysmsapi.aliyuncs.com')
             ->options([
                 'query' => $data,
