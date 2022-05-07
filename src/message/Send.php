@@ -25,8 +25,6 @@ class Send
      */
     public function sendOne($data = [])
     {
-        // echo "<pre>";
-        AlibabaCloud::rpc();
         $result = AlibabaCloud::rpc()->product('Dysmsapi')
 
             // ->scheme('https') // https | http
