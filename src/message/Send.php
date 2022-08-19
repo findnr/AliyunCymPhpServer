@@ -53,7 +53,7 @@ class Send
         if (count($phone_data) > 100) {
             $phone_group_arr = $this->_data_res($phone_data, 100);
             foreach ($phone_group_arr as $k => $v) {
-                $$send_data = [];
+                $send_data = [];
                 $send_data['TemplateCode'] = $data['template_code'];
                 $send_data['SignNameJson'] = [];
                 $send_data['TemplateParamJson'] = [];
